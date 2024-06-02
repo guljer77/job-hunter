@@ -5,9 +5,10 @@ import { IoMenu } from "react-icons/io5";
 import { IoIosClose } from "react-icons/io";
 import { FaArrowRightLong, FaRightToBracket } from "react-icons/fa6";
 import { FaSortDown } from "react-icons/fa";
-
+import { useAuth } from "../../Hooks/useAuth";
 
 function Header() {
+  const { user, logOutUser } = useAuth();
   const [menu, setMenu] = useState(false);
   const [profile, setProfile] = useState(false);
   // const { data: users = [], refetch } = useQuery({
@@ -17,13 +18,13 @@ function Header() {
   //     return res.data;
   //   },
   // });
-  // const handleLogout = () => {
-  //   logOutUser()
-  //     .then(() => {})
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // };
+  const handleLogout = () => {
+    logOutUser()
+      .then(() => {})
+      .catch(error => {
+        console.log(error);
+      });
+  };
   return (
     <>
       <div className="py-5 bg-white shadow-lg">
@@ -89,13 +90,13 @@ function Header() {
                 </ul>
                 <div className="">
                   <Link
-                    to="/profile/post-a-job"
+                    to="/profile/add-job"
                     className="text-[16px] text-white rounded font-semibold bg-primary px-5 py-3"
                   >
                     Post A Job <FaArrowRightLong className="inline-block" />
                   </Link>
                 </div>
-                {/* {user && (
+                {user && (
                   <div className="border border-gray-300 rounded cursor-pointer px-2 py-[5px]">
                     {user ? (
                       <div
@@ -103,7 +104,7 @@ function Header() {
                         className="flex items-center gap-1"
                       >
                         <img
-                          src={users ? users?.img : user?.photoURL}
+                          src={user?.photoURL}
                           alt=""
                           className="w-[40px] h-[40px] rounded-full"
                         />
@@ -115,7 +116,7 @@ function Header() {
                       ""
                     )}
                   </div>
-                )} */}
+                )}
                 {profile && (
                   <div className="absolute top-[72px] w-[130px] h-[100px] rounded z-50 right-20 bg-gray-50 shadow-md p-3">
                     <a href="/profile" className="text-primary py-2 block">
@@ -123,7 +124,7 @@ function Header() {
                     </a>
                     <a
                       href=""
-                      // onClick={handleLogout}
+                      onClick={handleLogout}
                       className="px-3 py-[6px] bg-primary text-white rounded"
                     >
                       Logout
@@ -172,13 +173,13 @@ function Header() {
             </li>
             <li className="pb-2 pt-2">
               <Link
-                to="/profile"
+                to="/profile/add-job"
                 className="text-[16px] text-white rounded font-semibold bg-primary px-5 py-3"
               >
                 Post A Job <FaArrowRightLong className="inline-block" />
               </Link>
             </li>
-            {/* {user && (
+            {user && (
               <div className="flex items-center space-x-3">
                 <div>
                   {user ? (
@@ -202,7 +203,7 @@ function Header() {
                   )}
                 </div>
               </div>
-            )} */}
+            )}
           </ul>
         </div>
       )}

@@ -2,8 +2,10 @@ import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaGoogle, FaFacebookSquare, FaLinkedinIn } from "react-icons/fa";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../../Hooks/useAuth";
 
 function SignUp() {
+  const { userRegister, updateUser, googleAuthUser } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
@@ -14,62 +16,61 @@ function SignUp() {
   } = useForm();
 
   const onSubmit = data => {
-    console.log(data);
-    // const fromData = new FormData();
-    // fromData.append("image", data.image[0]);
+    const fromData = new FormData();
+    fromData.append("image", data.image[0]);
 
-    // const url = `https://api.imgbb.com/1/upload?key=${
-    //   import.meta.env.VITE_IMGBB_KEY
-    // }`;
+    const url = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_IMGBB_KEY
+    }`;
 
-    // fetch(url, {
-    //   method: "POST",
-    //   body: fromData,
-    // })
-    //   .then(res => res.json())
-    //   .then(imageData => {
-    //     const imgUrl = imageData.data.display_url;
-    //     userRegister(data.email, data.password)
-    //       .then(result => {
-    //         updateUser(data.name, imgUrl)
-    //           .then(() => {
-    //             const userInfo = {
-    //               email: result?.user?.email,
-    //               name: result?.user?.displayName,
-    //             };
-    //             axios.put(
-    //               `http://localhost:5000/users/${result?.user?.email}`,
-    //               userInfo
-    //             );
-    //             navigate(from, { replace: true });
-    //           })
-    //           .catch(error => {
-    //             console.log(error.message);
-    //           });
-    //       })
-    //       .catch(error => {
-    //         console.log(error.message);
-    //       });
-    //   });
+    fetch(url, {
+      method: "POST",
+      body: fromData,
+    })
+      .then(res => res.json())
+      .then(imageData => {
+        const imgUrl = imageData.data.display_url;
+        userRegister(data.email, data.password)
+          .then(() => {
+            updateUser(data.name, imgUrl)
+              .then(() => {
+                // const userInfo = {
+                //   email: result?.user?.email,
+                //   name: result?.user?.displayName,
+                // };
+                // axios.put(
+                //   `http://localhost:5000/users/${result?.user?.email}`,
+                //   userInfo
+                // );
+                navigate(from, { replace: true });
+              })
+              .catch(error => {
+                console.log(error.message);
+              });
+          })
+          .catch(error => {
+            console.log(error.message);
+          });
+      });
   };
 
-  // const handleGoogle = () => {
-  //   googleAuthUser()
-  //     .then(result => {
-  //       const userInfo = {
-  //         email: result?.user?.email,
-  //         name: result?.user?.displayName,
-  //       };
-  //       axios.put(
-  //         `http://localhost:5000/users/${result?.user?.email}`,
-  //         userInfo
-  //       );
-  //       navigate(from, { replace: true });
-  //     })
-  //     .catch(error => {
-  //       console.log(error.message);
-  //     });
-  // };
+  const handleGoogle = () => {
+    googleAuthUser()
+      .then(() => {
+        // const userInfo = {
+        //   email: result?.user?.email,
+        //   name: result?.user?.displayName,
+        // };
+        // axios.put(
+        //   `http://localhost:5000/users/${result?.user?.email}`,
+        //   userInfo
+        // );
+        navigate(from, { replace: true });
+      })
+      .catch(error => {
+        console.log(error.message);
+      });
+  };
 
   return (
     <div className="w-full h-[100vh] flex items-center justify-center">
@@ -79,7 +80,7 @@ function SignUp() {
         </h4>
         <h5 className="text-[16px] font-medium mb-5">Sign Up</h5>
         <div>
-          <form action="" onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <input
                 type="text"
@@ -159,7 +160,7 @@ function SignUp() {
           <Link className="w-[35px] h-[35px] border border-primary text-[20px] flex items-center justify-center text-primary rounded-full">
             <FaFacebookSquare />
           </Link>
-          <Link className="w-[35px] h-[35px] border border-primary text-[20px] flex items-center justify-center text-primary rounded-full">
+          <Link onClick={handleGoogle} className="w-[35px] h-[35px] border border-primary text-[20px] flex items-center justify-center text-primary rounded-full">
             <FaGoogle />
           </Link>
           <Link className="w-[35px] h-[35px] border border-primary text-[20px] flex items-center justify-center text-primary rounded-full">

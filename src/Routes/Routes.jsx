@@ -6,6 +6,8 @@ import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
 import About from "../Pages/About/About";
 import Contact from "../Pages/Contact/Contact";
+import Profile from "../Pages/Profile/Profile";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +26,16 @@ export const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />
+      },
+      {
+        path: "/profile",
+        element: <PrivateRoute><Profile /></PrivateRoute>,
+        children:[
+          {
+            path: "/profile/add-job",
+            element: "welcome"
+          }
+        ]
       }
     ],
   },

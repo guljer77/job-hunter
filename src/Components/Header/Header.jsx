@@ -31,7 +31,7 @@ function Header() {
           <div className="flex items-center justify-between">
             <div>
               <Link className="lg:text-[30px] text-[24px] font-bold text-primary">
-                Find Carrier
+                JobHunter
               </Link>
             </div>
             <div className="lg:hidden block">

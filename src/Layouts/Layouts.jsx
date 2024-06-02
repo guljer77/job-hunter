@@ -1,8 +1,14 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
+import Footer from '../Components/Footer/Footer'
 
 function Layouts() {
   return (
-    <div>Layouts</div>
+    <div>
+      <h2>Header</h2>
+      <Outlet />
+      <Footer />
+    </div>
   )
 }
 

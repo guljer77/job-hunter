@@ -5,28 +5,25 @@ import { IoMenu } from "react-icons/io5";
 import { IoIosClose } from "react-icons/io";
 import { FaArrowRightLong, FaRightToBracket } from "react-icons/fa6";
 import { FaSortDown } from "react-icons/fa";
-import { useAuth } from "../../Hooks/useAuth";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+
 
 function Header() {
   const [menu, setMenu] = useState(false);
   const [profile, setProfile] = useState(false);
-  const { user, logOutUser } = useAuth();
-  const { data: users = [], refetch } = useQuery({
-    queryKey: ["users"],
-    queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/users/${user?.email}`);
-      return res.data;
-    },
-  });
-  const handleLogout = () => {
-    logOutUser()
-      .then(() => {})
-      .catch(error => {
-        console.log(error);
-      });
-  };
+  // const { data: users = [], refetch } = useQuery({
+  //   queryKey: ["users"],
+  //   queryFn: async () => {
+  //     const res = await axios.get(`http://localhost:5000/users/${user?.email}`);
+  //     return res.data;
+  //   },
+  // });
+  // const handleLogout = () => {
+  //   logOutUser()
+  //     .then(() => {})
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // };
   return (
     <>
       <div className="py-5 bg-white shadow-lg">
@@ -98,7 +95,7 @@ function Header() {
                     Post A Job <FaArrowRightLong className="inline-block" />
                   </Link>
                 </div>
-                {user && (
+                {/* {user && (
                   <div className="border border-gray-300 rounded cursor-pointer px-2 py-[5px]">
                     {user ? (
                       <div
@@ -118,7 +115,7 @@ function Header() {
                       ""
                     )}
                   </div>
-                )}
+                )} */}
                 {profile && (
                   <div className="absolute top-[72px] w-[130px] h-[100px] rounded z-50 right-20 bg-gray-50 shadow-md p-3">
                     <a href="/profile" className="text-primary py-2 block">
@@ -126,7 +123,7 @@ function Header() {
                     </a>
                     <a
                       href=""
-                      onClick={handleLogout}
+                      // onClick={handleLogout}
                       className="px-3 py-[6px] bg-primary text-white rounded"
                     >
                       Logout
@@ -181,7 +178,7 @@ function Header() {
                 Post A Job <FaArrowRightLong className="inline-block" />
               </Link>
             </li>
-            {user && (
+            {/* {user && (
               <div className="flex items-center space-x-3">
                 <div>
                   {user ? (
@@ -205,7 +202,7 @@ function Header() {
                   )}
                 </div>
               </div>
-            )}
+            )} */}
           </ul>
         </div>
       )}

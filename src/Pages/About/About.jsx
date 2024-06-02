@@ -12,7 +12,7 @@ function About() {
   return (
     <div>
       <Helmet>
-        <title>Find Carrier | About Us</title>
+        <title>Job Hunter | About Us</title>
       </Helmet>
       <CommonBanner heading={"About Us"} />
       <Container>

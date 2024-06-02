@@ -1,0 +1,21 @@
+.banner{
+  width: 100%;
+  height: 60vh;
+  background-image: url('../../assets/carousel-1.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  z-index: 30;
+}
+.banner::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60vh;
+  background-color: black;
+  opacity: 0.6;
+  z-index: -30;
+}

@@ -11,6 +11,8 @@ import PrivateRoute from "./PrivateRoute";
 import DashboardLayouts from "../Layouts/DashboardLayouts";
 import ProfileHome from "../Pages/Profile/ProfileHome/ProfileHome";
 import UpdateUser from "../Pages/Profile/UpdateUser/UpdateUser";
+import AllPostedJob from "../Pages/Profile/PostJob/AllPostedJob";
+import AddJob from "../Pages/Profile/PostJob/AddJob";
 
 export const router = createBrowserRouter([
   {
@@ -24,34 +26,38 @@ export const router = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <About />
+        element: <About />,
       },
       {
         path: "/contact",
-        element: <Contact />
+        element: <Contact />,
       },
       {
         path: "/profile",
-        element: <PrivateRoute><Profile /></PrivateRoute>,
-        children:[
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
+        children: [
           {
             path: "/profile",
-            element: <ProfileHome />
+            element: <ProfileHome />,
           },
           {
             path: "/profile/update",
-            element: <UpdateUser />
+            element: <UpdateUser />,
           },
           {
             path: "/profile/all-job",
-            element: <ProfileHome />
+            element: <AllPostedJob />,
           },
           {
             path: "/profile/add-job",
-            element: <ProfileHome />
-          }
-        ]
-      }
+            element: <AddJob />,
+          },
+        ],
+      },
     ],
   },
   {
@@ -67,9 +73,9 @@ export const router = createBrowserRouter([
     element: <DashboardLayouts />,
     children: [
       {
-        path:"/dashboard",
-        element: "Hello"
-      }
-    ]
-  }
+        path: "/dashboard",
+        element: "Hello",
+      },
+    ],
+  },
 ]);

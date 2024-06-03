@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { useAuth } from "../../Hooks/useAuth";
 import { NavLink, Outlet } from "react-router-dom";
 import Container from "../../Components/Container";
+import CommonBanner from "../../Components/CommonBanner/CommonBanner";
 
 function Profile() {
   const { user } = useAuth();
@@ -11,6 +12,7 @@ function Profile() {
       <Helmet>
         <title>Job Hunter | Profile</title>
       </Helmet>
+      <CommonBanner heading={"Profile"} />
       <Container>
         <div className="py-10">
           <div className="lg:flex items-start justify-between">
@@ -47,18 +49,18 @@ function Profile() {
                   </li>
                   <li className="py-2 bg-primary/10 mb-1 text-[16px] font-medium uppercase">
                     <NavLink
-                      to="/profile/post-a-job"
+                      to="/profile/all-job"
                       className={({ isActive }) =>
                         isActive ? "text-primary" : ""
                       }
                     >
-                      <span className="pl-8">Post A Jobs</span>
+                      <span className="pl-8">Posted All Jobs</span>
                     </NavLink>
                   </li>
                 </ul>
               </div>
             </div>
-            <div className="lg:w-3/4 w-full ml-10">
+            <div className="lg:w-3/4 w-full lg:ml-10 ml-0 lg:mt-0 mt-5">
               <Outlet />
             </div>
           </div>

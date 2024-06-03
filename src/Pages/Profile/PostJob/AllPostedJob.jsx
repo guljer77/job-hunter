@@ -46,7 +46,7 @@ function AllPostedJob() {
                 <td>{item?.maxPrice}k</td>
                 <td>{item?.jobLocation}</td>
                 <td className="flex items-center space-x-2">
-                  <Link className="text-[20px] w-[35px] h-[35px] rounded cursor-pointer flex items-center justify-center bg-primary text-white">
+                  <Link to={`/profile/details/${item?._id}`} className="text-[20px] w-[35px] h-[35px] rounded cursor-pointer flex items-center justify-center bg-primary text-white">
                     <FaEye />
                   </Link>
                   <Link className="text-[20px] w-[35px] h-[35px] rounded cursor-pointer flex items-center justify-center bg-blue-600 text-white">

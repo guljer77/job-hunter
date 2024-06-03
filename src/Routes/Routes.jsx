@@ -13,6 +13,7 @@ import ProfileHome from "../Pages/Profile/ProfileHome/ProfileHome";
 import UpdateUser from "../Pages/Profile/UpdateUser/UpdateUser";
 import AllPostedJob from "../Pages/Profile/PostJob/AllPostedJob";
 import AddJob from "../Pages/Profile/PostJob/AddJob";
+import PostedJobDetails from "../Pages/Profile/PostJob/PostedJobDetails";
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ export const router = createBrowserRouter([
           {
             path: "/profile/add-job",
             element: <AddJob />,
+          },
+          {
+            path: "/profile/details/:id",
+            element: <PostedJobDetails />,
           },
         ],
       },

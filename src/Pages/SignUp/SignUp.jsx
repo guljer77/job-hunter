@@ -1,11 +1,12 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { FaGoogle, FaFacebookSquare, FaLinkedinIn } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../Hooks/useAuth";
+import axios from "axios";
 
 function SignUp() {
-  const { userRegister, updateUser, googleAuthUser } = useAuth();
+  const { user, userRegister, updateUser, googleAuthUser } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
@@ -31,17 +32,17 @@ function SignUp() {
       .then(imageData => {
         const imgUrl = imageData.data.display_url;
         userRegister(data.email, data.password)
-          .then(() => {
+          .then((result) => {
             updateUser(data.name, imgUrl)
               .then(() => {
-                // const userInfo = {
-                //   email: result?.user?.email,
-                //   name: result?.user?.displayName,
-                // };
-                // axios.put(
-                //   `http://localhost:5000/users/${result?.user?.email}`,
-                //   userInfo
-                // );
+                const userInfo = {
+                  email: result?.user?.email,
+                  name: result?.user?.displayName,
+                };
+                axios.put(
+                  `http://localhost:5000/users/${result?.user?.email}`,
+                  userInfo
+                );
                 navigate(from, { replace: true });
               })
               .catch(error => {
@@ -56,21 +57,25 @@ function SignUp() {
 
   const handleGoogle = () => {
     googleAuthUser()
-      .then(() => {
-        // const userInfo = {
-        //   email: result?.user?.email,
-        //   name: result?.user?.displayName,
-        // };
-        // axios.put(
-        //   `http://localhost:5000/users/${result?.user?.email}`,
-        //   userInfo
-        // );
+      .then((result) => {
+        const userInfo = {
+          email: result?.user?.email,
+          name: result?.user?.displayName,
+        };
+        axios.put(
+          `http://localhost:5000/users/${result?.user?.email}`,
+          userInfo
+        );
         navigate(from, { replace: true });
       })
       .catch(error => {
         console.log(error.message);
       });
   };
+
+  if (user) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="w-full h-[100vh] flex items-center justify-center">
@@ -160,7 +165,10 @@ function SignUp() {
           <Link className="w-[35px] h-[35px] border border-primary text-[20px] flex items-center justify-center text-primary rounded-full">
             <FaFacebookSquare />
           </Link>
-          <Link onClick={handleGoogle} className="w-[35px] h-[35px] border border-primary text-[20px] flex items-center justify-center text-primary rounded-full">
+          <Link
+            onClick={handleGoogle}
+            className="w-[35px] h-[35px] border border-primary text-[20px] flex items-center justify-center text-primary rounded-full"
+          >
             <FaGoogle />
           </Link>
           <Link className="w-[35px] h-[35px] border border-primary text-[20px] flex items-center justify-center text-primary rounded-full">

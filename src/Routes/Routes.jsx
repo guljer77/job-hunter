@@ -9,6 +9,8 @@ import Contact from "../Pages/Contact/Contact";
 import Profile from "../Pages/Profile/Profile";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayouts from "../Layouts/DashboardLayouts";
+import ProfileHome from "../Pages/Profile/ProfileHome/ProfileHome";
+import UpdateUser from "../Pages/Profile/UpdateUser/UpdateUser";
 
 export const router = createBrowserRouter([
   {
@@ -33,8 +35,20 @@ export const router = createBrowserRouter([
         element: <PrivateRoute><Profile /></PrivateRoute>,
         children:[
           {
+            path: "/profile",
+            element: <ProfileHome />
+          },
+          {
+            path: "/profile/update",
+            element: <UpdateUser />
+          },
+          {
+            path: "/profile/all-job",
+            element: <ProfileHome />
+          },
+          {
             path: "/profile/add-job",
-            element: "welcome"
+            element: <ProfileHome />
           }
         ]
       }

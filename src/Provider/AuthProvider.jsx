@@ -10,6 +10,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import app from "../Firebase/firebase.config";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -50,14 +51,21 @@ function AuthProvider({ children }) {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, loggedUser => {
       setUser(loggedUser);
-      console.log(loggedUser);
+      if (loggedUser) {
+        axios
+          .post("http://localhost:5000/jwt", { email: loggedUser.email })
+          .then(data => {
+            localStorage.setItem("access_token", data.data.token);
+          });
+      } else {
+        localStorage.removeItem("access_token");
+      }
       setLoading(false);
     });
     return () => {
       return unSubscribe();
     };
   }, []);
-
 
   const authInfo = {
     user,
@@ -67,7 +75,7 @@ function AuthProvider({ children }) {
     updateUser,
     loginUserSet,
     googleAuthUser,
-    logOutUser
+    logOutUser,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

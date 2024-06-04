@@ -4,6 +4,8 @@ import { FaPencilAlt, FaTrash, FaEye } from "react-icons/fa";
 import { useAuth } from "../../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 function AllPostedJob() {
   const { user } = useAuth();
@@ -14,6 +16,23 @@ function AllPostedJob() {
       return res.data;
     },
   });
+  const jobDelete = id => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't Delete this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(result => {
+      if (result.isConfirmed) {
+        refetch();
+        axios.delete(`http://localhost:5000/jobs/${id}`);
+        toast.warn("Job Deleted Success");
+      }
+    });
+  };
   return (
     <div className="p-5 bg-gray-100 rounded">
       <div className="pb-5 flex items-center justify-between">
@@ -38,7 +57,7 @@ function AllPostedJob() {
             </tr>
           </thead>
           <tbody>
-            {jobs?.map((item, index) => 
+            {jobs?.map((item, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{item?.jobTitle}</td>
@@ -46,18 +65,24 @@ function AllPostedJob() {
                 <td>{item?.maxPrice}k</td>
                 <td>{item?.jobLocation}</td>
                 <td className="flex items-center space-x-2">
-                  <Link to={`/profile/details/${item?._id}`} className="text-[20px] w-[35px] h-[35px] rounded cursor-pointer flex items-center justify-center bg-primary text-white">
+                  <Link
+                    to={`/profile/details/${item?._id}`}
+                    className="text-[20px] w-[35px] h-[35px] rounded cursor-pointer flex items-center justify-center bg-primary text-white"
+                  >
                     <FaEye />
                   </Link>
-                  <Link className="text-[20px] w-[35px] h-[35px] rounded cursor-pointer flex items-center justify-center bg-blue-600 text-white">
+                  <Link to={`/profile/updateJobs/${item?._id}`} className="text-[20px] w-[35px] h-[35px] rounded cursor-pointer flex items-center justify-center bg-blue-600 text-white">
                     <FaPencilAlt />
                   </Link>
-                  <span className="text-[20px] w-[35px] h-[35px] rounded cursor-pointer flex items-center justify-center bg-red-600 text-white">
+                  <span
+                    onClick={() => jobDelete(item?._id)}
+                    className="text-[20px] w-[35px] h-[35px] rounded cursor-pointer flex items-center justify-center bg-red-600 text-white"
+                  >
                     <FaTrash />
                   </span>
                 </td>
               </tr>
-            )}
+            ))}
           </tbody>
         </table>
       </div>

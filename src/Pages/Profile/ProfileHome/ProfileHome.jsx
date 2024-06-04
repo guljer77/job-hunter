@@ -11,7 +11,7 @@ function ProfileHome() {
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/users/${user?.email}`,
+        `https://job-hunter-server-rust.vercel.app/users/${user?.email}`,
         {
           headers: {
             authorization: `Bearer ${token}`,

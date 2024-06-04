@@ -13,7 +13,7 @@ function UpdateJob() {
   const { data: jobs = [], refetch } = useQuery({
     queryKey: ["jobs"],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/jobs/${user?.email}`);
+      const res = await axios.get(`https://job-hunter-server-rust.vercel.app/jobs/${user?.email}`);
       return res.data;
     },
   });
@@ -48,7 +48,7 @@ function UpdateJob() {
       employmentType,
       description,
     };
-    axios.patch(`http://localhost:5000/jobs/${id}`, jobInfo);
+    axios.patch(`https://job-hunter-server-rust.vercel.app/jobs/${id}`, jobInfo);
     toast.success("Job Update Success");
     navigate("/profile/all-job")
   };

@@ -14,7 +14,7 @@ function UpdateUser() {
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/users/${user?.email}`,
+        `https://job-hunter-server-rust.vercel.app/users/${user?.email}`,
         {
           headers: {
             authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ function UpdateUser() {
         const imgUrl = imageData.data.display_url;
         const { name, email, age, phone } = data;
         const userInfo = { name, email, age, phone, img: imgUrl };
-        axios.patch(`http://localhost:5000/users/${user?.email}`, userInfo);
+        axios.patch(`https://job-hunter-server-rust.vercel.app/users/${user?.email}`, userInfo);
         toast.success("User Profile Update");
         navigate("/profile");
       });

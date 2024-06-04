@@ -8,12 +8,12 @@ function ShowAllJobs() {
   const { data: jobs = [], refetch } = useQuery({
     queryKey: ["jobs"],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/jobs`);
+      const res = await axios.get(`https://job-hunter-server-rust.vercel.app/jobs`);
       return res.data;
     },
   });
   const approveJob = id => {
-    axios.put(`http://localhost:5000/jobs/${id}`);
+    axios.put(`https://job-hunter-server-rust.vercel.app/jobs/${id}`);
     refetch();
     toast.success("Job is Approved");
   };

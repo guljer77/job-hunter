@@ -12,7 +12,7 @@ function JobList() {
   const { data: jobs = [], refetch } = useQuery({
     queryKey: ["jobs"],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/jobs`);
+      const res = await axios.get(`https://job-hunter-server-rust.vercel.app/jobs`);
       return res.data;
     },
   });

@@ -3,7 +3,6 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { FaGoogle, FaFacebookSquare, FaLinkedinIn } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../Hooks/useAuth";
-import axios from "axios";
 
 function SignUp() {
   const { user, userRegister, updateUser, googleAuthUser } = useAuth();
@@ -40,7 +39,7 @@ function SignUp() {
                   name: result?.user?.displayName,
                   role: "user",
                 };
-                fetch(`http://localhost:5000/users/${result?.user?.email}`, {
+                fetch(`https://job-hunter-server-rust.vercel.app/users/${result?.user?.email}`, {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
@@ -71,7 +70,7 @@ function SignUp() {
           name: result?.user?.displayName,
           role: "user",
         };
-        fetch(`http://localhost:5000/users/${result?.user?.email}`, {
+        fetch(`https://job-hunter-server-rust.vercel.app/users/${result?.user?.email}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -58,7 +58,7 @@ function AddJob() {
           skills: selectedOption,
           status: "pending",
         };
-        axios.post(`http://localhost:5000/jobs`, jobInfo);
+        axios.post(`https://job-hunter-server-rust.vercel.app/jobs`, jobInfo);
         toast.success("Job Post Success");
         navigate("/profile/all-job");
       });

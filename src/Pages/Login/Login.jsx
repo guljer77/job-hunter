@@ -32,7 +32,7 @@ function Login() {
           name: result?.user?.displayName,
           role: "user",
         };
-        fetch(`http://localhost:5000/users/${result?.user?.email}`, {
+        fetch(`https://job-hunter-server-rust.vercel.app/users/${result?.user?.email}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -58,7 +58,7 @@ function Login() {
           name: result?.user?.displayName,
           role: "user",
         };
-        fetch(`http://localhost:5000/users/${result?.user?.email}`, {
+        fetch(`https://job-hunter-server-rust.vercel.app/users/${result?.user?.email}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

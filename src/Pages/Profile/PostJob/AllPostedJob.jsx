@@ -12,7 +12,7 @@ function AllPostedJob() {
   const { data: jobs = [], refetch } = useQuery({
     queryKey: ["jobs"],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/jobs/${user?.email}`);
+      const res = await axios.get(`https://job-hunter-server-rust.vercel.app/jobs/${user?.email}`);
       return res.data;
     },
   });
@@ -29,7 +29,7 @@ function AllPostedJob() {
     }).then(result => {
       if (result.isConfirmed) {
         refetch();
-        axios.delete(`http://localhost:5000/jobs/${id}`, {
+        axios.delete(`https://job-hunter-server-rust.vercel.app/jobs/${id}`, {
           headers: { authorization: `Bearer ${token}` },
         });
         toast.warn("Job Deleted Success");

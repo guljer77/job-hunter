@@ -8,14 +8,23 @@ import { toast } from "react-toastify";
 
 function UpdateUser() {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
   const { user } = useAuth();
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/users/${user?.email}`);
+      const res = await axios.get(
+        `http://localhost:5000/users/${user?.email}`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
       return res.data;
     },
   });
+  console.log(users);
   const {
     register,
     handleSubmit,

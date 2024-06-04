@@ -15,6 +15,7 @@ import AllPostedJob from "../Pages/Profile/PostJob/AllPostedJob";
 import AddJob from "../Pages/Profile/PostJob/AddJob";
 import PostedJobDetails from "../Pages/Profile/PostJob/PostedJobDetails";
 import UpdateJob from "../Pages/Profile/PostJob/UpdateJob";
+import ShowAllJobs from "../Dashboard/Alljobs/ShowAllJobs";
 
 export const router = createBrowserRouter([
   {
@@ -86,6 +87,10 @@ export const router = createBrowserRouter([
         path: "/dashboard",
         element: "Hello",
       },
+      {
+        path: '/dashboard/all-jobs',
+        element: <ShowAllJobs />
+      }
     ],
   },
 ]);

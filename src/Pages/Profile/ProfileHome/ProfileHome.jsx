@@ -5,14 +5,23 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 function ProfileHome() {
-  const {user} = useAuth();
+  const { user } = useAuth();
+  const token = localStorage.getItem("token");
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/users/${user?.email}`);
+      const res = await axios.get(
+        `http://localhost:5000/users/${user?.email}`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
       return res.data;
     },
   });
+  console.log(users);
   return (
     <div className="bg-gray-100 rounded p-10">
       <div className="pb-5 flex items-center justify-between">

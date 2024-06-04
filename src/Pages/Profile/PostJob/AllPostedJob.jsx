@@ -17,6 +17,7 @@ function AllPostedJob() {
     },
   });
   const jobDelete = id => {
+    const token = localStorage.getItem("token");
     Swal.fire({
       title: "Are you sure?",
       text: "You won't Delete this!",
@@ -28,7 +29,9 @@ function AllPostedJob() {
     }).then(result => {
       if (result.isConfirmed) {
         refetch();
-        axios.delete(`http://localhost:5000/jobs/${id}`);
+        axios.delete(`http://localhost:5000/jobs/${id}`, {
+          headers: { authorization: `Bearer ${token}` },
+        });
         toast.warn("Job Deleted Success");
       }
     });
@@ -71,7 +74,10 @@ function AllPostedJob() {
                   >
                     <FaEye />
                   </Link>
-                  <Link to={`/profile/updateJobs/${item?._id}`} className="text-[20px] w-[35px] h-[35px] rounded cursor-pointer flex items-center justify-center bg-blue-600 text-white">
+                  <Link
+                    to={`/profile/updateJobs/${item?._id}`}
+                    className="text-[20px] w-[35px] h-[35px] rounded cursor-pointer flex items-center justify-center bg-blue-600 text-white"
+                  >
                     <FaPencilAlt />
                   </Link>
                   <span

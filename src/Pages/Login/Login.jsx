@@ -1,5 +1,11 @@
 import React from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  Navigate,
+  json,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { FaGoogle, FaFacebookSquare, FaLinkedinIn } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../Hooks/useAuth";
@@ -20,16 +26,24 @@ function Login() {
 
   const onSubmit = data => {
     loginUserSet(data.email, data.password)
-      .then((result) => {
+      .then(result => {
         const userInfo = {
           email: result?.user?.email,
           name: result?.user?.displayName,
+          role: "user",
         };
-        axios.put(
-          `http://localhost:5000/users/${result?.user?.email}`,
-          userInfo
-        );
-        navigate(from, { replace: true });
+        fetch(`http://localhost:5000/users/${result?.user?.email}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
+        })
+          .then(res => res.json())
+          .then((data) => {
+            localStorage.setItem('token', data?.token)
+            navigate(from, { replace: true });
+          });
       })
       .catch(error => {
         console.log(error.message);
@@ -38,23 +52,31 @@ function Login() {
 
   const handleGoogle = () => {
     googleAuthUser()
-      .then((result) => {
+      .then(result => {
         const userInfo = {
           email: result?.user?.email,
           name: result?.user?.displayName,
+          role: "user",
         };
-        axios.put(
-          `http://localhost:5000/users/${result?.user?.email}`,
-          userInfo
-        );
-        navigate(from, { replace: true });
+        fetch(`http://localhost:5000/users/${result?.user?.email}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
+        })
+          .then(res => res.json())
+          .then((data) => {
+            localStorage.setItem('token', data?.token)
+            navigate(from, { replace: true });
+          });
       })
       .catch(error => {
         console.log(error.message);
       });
   };
-  if(user){
-    return <Navigate to="/" />
+  if (user) {
+    return <Navigate to="/" />;
   }
   return (
     <div>

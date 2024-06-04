@@ -11,16 +11,11 @@ function Header() {
   const { user, logOutUser } = useAuth();
   const [menu, setMenu] = useState(false);
   const [profile, setProfile] = useState(false);
-  // const { data: users = [], refetch } = useQuery({
-  //   queryKey: ["users"],
-  //   queryFn: async () => {
-  //     const res = await axios.get(`http://localhost:5000/users/${user?.email}`);
-  //     return res.data;
-  //   },
-  // });
   const handleLogout = () => {
     logOutUser()
-      .then(() => {})
+      .then(() => {
+        localStorage.removeItem("token");
+      })
       .catch(error => {
         console.log(error);
       });

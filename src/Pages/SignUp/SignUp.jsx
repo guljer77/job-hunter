@@ -32,18 +32,26 @@ function SignUp() {
       .then(imageData => {
         const imgUrl = imageData.data.display_url;
         userRegister(data.email, data.password)
-          .then((result) => {
+          .then(result => {
             updateUser(data.name, imgUrl)
               .then(() => {
                 const userInfo = {
                   email: result?.user?.email,
                   name: result?.user?.displayName,
+                  role: "user",
                 };
-                axios.put(
-                  `http://localhost:5000/users/${result?.user?.email}`,
-                  userInfo
-                );
-                navigate(from, { replace: true });
+                fetch(`http://localhost:5000/users/${result?.user?.email}`, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(userInfo),
+                })
+                  .then(res => res.json())
+                  .then((data) => {
+                    localStorage.setItem('token', data?.token)
+                    navigate(from, { replace: true });
+                  });
               })
               .catch(error => {
                 console.log(error.message);
@@ -57,16 +65,24 @@ function SignUp() {
 
   const handleGoogle = () => {
     googleAuthUser()
-      .then((result) => {
+      .then(result => {
         const userInfo = {
           email: result?.user?.email,
           name: result?.user?.displayName,
+          role: "user",
         };
-        axios.put(
-          `http://localhost:5000/users/${result?.user?.email}`,
-          userInfo
-        );
-        navigate(from, { replace: true });
+        fetch(`http://localhost:5000/users/${result?.user?.email}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
+        })
+          .then(res => res.json())
+          .then((data) => {
+            localStorage.setItem('token', data?.token)
+            navigate(from, { replace: true });
+          });
       })
       .catch(error => {
         console.log(error.message);

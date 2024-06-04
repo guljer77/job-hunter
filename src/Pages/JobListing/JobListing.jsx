@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Container from "../../../Components/Container";
+import { Helmet } from "react-helmet-async";
+import CommonBanner from "../../Components/CommonBanner/CommonBanner";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { MdOutlineWatchLater } from "react-icons/md";
@@ -7,8 +8,9 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 import { SlCalender } from "react-icons/sl";
 import { Link } from "react-router-dom";
+import Container from "../../Components/Container";
 
-function JobList() {
+function JobListing() {
   const { data: jobs = [], refetch } = useQuery({
     queryKey: ["jobs"],
     queryFn: async () => {
@@ -17,6 +19,7 @@ function JobList() {
     },
   });
   const [items, setItems] = useState([]);
+  const [search, setSearch] = useState("");
   useEffect(() => {
     const filterItem = () => {
       return jobs.filter(item => item?.status === "approve");
@@ -32,12 +35,25 @@ function JobList() {
     setItems(updateItem);
   };
 
+  //search
+  const searchResult = event => {
+    const searchFilter = event.target.value;
+    setSearch(searchFilter);
+    const filterData = jobs.filter(item =>
+      item?.jobTitle.toLowerCase().includes(searchFilter.toLowerCase())
+    );
+    setItems(filterData);
+  };
+
   return (
-    <div className="pb-10">
+    <div className="">
+      <Helmet>
+        <title>Job Hunter | Job Listing Page</title>
+      </Helmet>
+      <CommonBanner heading={"Job Listing"} />
       <Container>
-        <h4 className="text-[36px] font-bold text-center pb-5">Job Listing</h4>
-        <div className="pb-10">
-          <ul className="flex flex-wrap items-center justify-center space-x-3">
+        <div className="py-10 lg:flex items-center justify-between">
+          <ul className="flex flex-wrap items-center lg:mb-0 mb-5 justify-center space-x-3">
             <button
               onClick={() => setItems(jobs)}
               className="bg-rose-600 text-white lg:mb-0 mb-3 px-5 py-[6px] rounded cursor-pointer"
@@ -63,6 +79,24 @@ function JobList() {
               Temporary
             </button>
           </ul>
+          <div>
+            <form>
+              <div className="flex items-center gap-2">
+                <input
+                  type="text"
+                  value={search}
+                  onChange={searchResult}
+                  placeholder="Search Your Dream Job."
+                  className="py-2 px-2 rounded outline-0 border border-primary"
+                />
+                <input
+                  type="submit"
+                  value="Search"
+                  className="px-5 py-2 bg-primary text-white rounded"
+                />
+              </div>
+            </form>
+          </div>
         </div>
         {items.map((item, index) => (
           <div key={index} className="bg-gray-50 shadow-md mb-7 rounded p-5">
@@ -98,12 +132,9 @@ function JobList() {
             </div>
           </div>
         ))}
-        <div className="py-5 text-center">
-          <Link to="/jobs" className="px-5 py-2 bg-primary text-white rounded">Browse More Jobs</Link>
-        </div>
       </Container>
     </div>
   );
 }
 
-export default JobList;
+export default JobListing;

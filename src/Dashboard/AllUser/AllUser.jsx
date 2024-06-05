@@ -12,7 +12,6 @@ function AllUser() {
       return res.data;
     },
   });
-  console.log(users);
   return (
     <div className="bg-gray-100 rounded p-10">
       <h4 className="text-[26px] pb-5 font-semibold">All User</h4>

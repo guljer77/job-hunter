@@ -39,12 +39,12 @@ function Profile() {
                   </li>
                   <li className="py-2 bg-primary/10 mb-1 text-[16px] font-medium uppercase">
                     <NavLink
-                      to="/profile/applied-jobs"
+                      to="/profile/apply-job"
                       className={({ isActive }) =>
                         isActive ? "text-primary" : ""
                       }
                     >
-                      <span className="pl-8">Applied Jobs</span>
+                      <span className="pl-8">View Apply Job</span>
                     </NavLink>
                   </li>
                   <li className="py-2 bg-primary/10 mb-1 text-[16px] font-medium uppercase">

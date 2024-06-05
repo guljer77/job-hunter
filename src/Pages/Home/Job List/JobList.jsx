@@ -86,7 +86,7 @@ function JobList() {
               </div>
               <div className="lg:w-[15%] w-full lg:pb-0 pb-3">
                 <Link
-                  to={`/detailsJob/${item?._id}`}
+                  to={`/jobDetails/${item?._id}`}
                   className="px-5 block py-2 mb-3 text-white rounded bg-primary"
                 >
                   Apply Now

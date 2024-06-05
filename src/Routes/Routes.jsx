@@ -18,6 +18,8 @@ import UpdateJob from "../Pages/Profile/PostJob/UpdateJob";
 import ShowAllJobs from "../Dashboard/Alljobs/ShowAllJobs";
 import JobListing from "../Pages/JobListing/JobListing";
 import JobDetails from "../Pages/JobDetails/JobDetails";
+import DashHome from "../Dashboard/DashBoardHome/DashHome";
+import AllUser from "../Dashboard/AllUser/AllUser";
 
 export const router = createBrowserRouter([
   {
@@ -95,12 +97,16 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: "Hello",
+        element: <DashHome />,
       },
       {
         path: "/dashboard/all-jobs",
         element: <ShowAllJobs />,
       },
+      {
+        path: "/dashboard/all-user",
+        element: <AllUser />
+      }
     ],
   },
 ]);

@@ -19,6 +19,7 @@ function ShowAllJobs() {
   };
   return (
     <div className="bg-gray-100 p-5 rounded">
+      <h4 className="text-[26px] pb-5 font-semibold">Admin Approve Job</h4>
       <div className="overflow-x-auto">
         <table className="table table-zebra">
           <thead>

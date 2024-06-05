@@ -113,9 +113,12 @@ function Header() {
                   </div>
                 )}
                 {profile && (
-                  <div className="absolute top-[72px] w-[130px] h-[100px] rounded z-50 right-20 bg-gray-50 shadow-md p-3">
+                  <div className="absolute top-[72px] w-[130px] h-[130px] rounded z-50 right-20 bg-gray-50 shadow-md p-3">
                     <a href="/profile" className="text-primary py-2 block">
                       Profile
+                    </a>
+                    <a href="/dashboard" className="text-primary mb-3 block">
+                      Dashboard
                     </a>
                     <a
                       href=""

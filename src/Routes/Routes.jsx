@@ -18,7 +18,6 @@ import UpdateJob from "../Pages/Profile/PostJob/UpdateJob";
 import ShowAllJobs from "../Dashboard/Alljobs/ShowAllJobs";
 import JobListing from "../Pages/JobListing/JobListing";
 import JobDetails from "../Pages/JobDetails/JobDetails";
-import TotalApply from "../Pages/Profile/Total Apply/TotalApply";
 
 export const router = createBrowserRouter([
   {
@@ -78,10 +77,6 @@ export const router = createBrowserRouter([
             path: "/profile/updateJobs/:id",
             element: <UpdateJob />,
           },
-          {
-            path: "/profile/apply-job",
-            element: <TotalApply />
-          }
         ],
       },
     ],

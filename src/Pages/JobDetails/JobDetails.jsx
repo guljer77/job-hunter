@@ -46,7 +46,7 @@ function JobDetails() {
       email: user?.email,
       status: "Under Review",
     };
-    axios.post(`http://localhost:5000/application`, newItem);
+    axios.post(`https://job-hunter-server-rust.vercel.app/application`, newItem);
     toast.success("Job Applied Successfully");
     navigate("/profile");
   };
